@@ -1,155 +1,200 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <title>Aadharam</title>
-      <!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-      <!-- icons -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>aadharamforyou</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!-- icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
-      <!-- Google font -->
-      <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-      <style type="text/css">
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+
+
+    <style type="text/css">
         body {
-          font-family: 'Righteous', cursive;
-          font-size: 20px;
-          font-weight: 400;
-          letter-spacing: 4px;
-          overflow-wrap: break-word;
-          word-wrap: break-word;
-          box-sizing: inherit; 
+            font-family: 'Righteous', cursive;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            box-sizing: inherit;
         }
 
-        .logostyle
-        {
-
-          height: 150px;
-          width: 150px;
+        .logostyle {
+            height: 150px;
+            width: 150px;
         }
 
-        .navtext
-        {
-          color:#009c54;
+        .navtext {
+            color: #009c54;
         }
 
-        .bgimage
-        {
-          height:80%;
-          width: 95%;
+        .bgimage {
+            height: 80%;
+            width: 95%;
         }
 
-        .cardsimage
-        {
-          height: 300px;
-          width: 100px;
+        .cardsimage {
+            height: 300px;
+            width: 100px;
         }
 
-        .cardpara
-        {
-          font-size: 14px;
-          letter-spacing: 1px;
+        .cardpara {
+            font-size: 14px;
+            letter-spacing: 1px;
         }
 
-        .floatimage
-        {
-          height: 100%;
-          width: 100%;
-          align-content: center;
+        .floatimage {
+            height: 100%;
+            width: 100%;
+            align-content: center;
         }
 
-        .circleimage
-        {
-          height: 250px;
-          width: 250px;
-          align-content: center; 
+        .circleimage {
+            height: 250px;
+            width: 250px;
+            align-content: center;
         }
-		
-	  .footertext
-	  {
-		font-size: 14px;
-		letter-spacing: 0px;
-	  }
-      </style>
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        .footertext {
+            font-size: 14px;
+            letter-spacing: 0px;
+        }
+    </style>
 
-    </head>
-    <body class="center">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
- 
-<div style="background-color: #009c54;;"  ><!-- start of the bgdiv -->
-<br>
-<div class="container">
+</head>
+<body class="center">
 
-    <p><a href="index.html"><i class="material-icons black-text ">home</i></a>  SITE CONTENT </p>
-	
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+    <script>
 
 
-<p class="cardpara">DONATION </p>
+        $(document).ready(function () {
 
-<p class="cardpara">Here stays the description of the event followed by the images corousel. This is a sample text. Here stays the description of the event followed by the images corousel. This is a sample text. Here stays the description of the event followed by the images corousel. This is a sample text</p>
+            var reqParam = getUrlVars();
+            var filename;
 
-<!-- List Here -->
-  <ul class="collection white">
-    <a href="#" style="text-align: left;"> <li class="collection-item black-text avatar">
-      
-	  <img src="images/facebook-logo-button.svg" alt="" class="circle">
-      <span class="title">Title</span>
-      <p class="cardpara">First Line <br>
-         Second Line
-      </p>   
-    </li> </a>
-	<hr>
-    <a href="#" style="text-align: left;"><li class="collection-item black-text avatar">
-	<i class="material-icons circle black">bookmark</i>
-      <span class="title">Title</span>
-      <p class="cardpara">First Line <br>
-         Second Line
-      </p>  
-    </li></a>
-	<hr>
-    <a href="#" style="text-align: left;"><li class="collection-item black-text avatar">
-      <i class="material-icons circle black">bookmark</i>
-      <span class="title">Title</span>
-      <p class="cardpara">First Line <br>
-         Second Line
-      </p>
-    </li></a>
-	<hr>
-    <a href="#" style="text-align: left;"><li class="collection-item black-text avatar">
-	<i class="material-icons circle black">bookmark</i>
-      <span class="title">Title</span>
-      <p class="cardpara">First Line <br>
-         Second Line
-      </p>
-    </li></a>
-  </ul>
+            if (reqParam != undefined && reqParam != null && filename != '')
+                filename = reqParam + ".json";
+
+            var filepath = "http://localhost:8082/XML/" + filename;
+            var html = '';
 
 
+            $.getJSON(filepath, function (data) {
 
-</div>
-<br>
-</div><!-- End of the Background Div -->
+                $.each(data.Events.post, function (i, item) {
+
+                    html += "<a href='" + item.link + "' target='_blank' style='text-align: left;'><li class='collection-item black-text avatar'><img src='images/facebook-logo-button.svg' class=circle>" +
+                        "<span class='title'>" + item.TITLE + "</span><p class=cardpara>" + item.Content + "<br>" +
+                            item.Address + "</p></li></a><hr>";
+                });
+
+                $("#ulposts").append(html);
+            });
+        });
+
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1);
+            for (var i = 0; i < hashes.length; i++) {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return hashes.split("=")[1];
+        }
+
+    </script>
+
+
+    <div style="background-color: #009c54;;">
+        <!-- start of the bgdiv -->
+        <br>
+        <div class="container">
+
+            <p><a href="index.html"><i class="material-icons black-text ">home</i></a>  SITE CONTENT </p>
 
 
 
+            <p class="cardpara">DONATION </p>
 
-<!-- javascript functions -->
-            <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
+            <p class="cardpara">Here stays the description of the event followed by the images corousel. This is a sample text. Here stays the description of the event followed by the images corousel. This is a sample text. Here stays the description of the event followed by the images corousel. This is a sample text</p>
 
-              <!-- JavaScript Functions -->
-  <script type="text/javascript"> 
-  $(document).ready(function(){
-    $(".button-collapse").sideNav();
-    $('.slider').slider();
-  });
-  </script>
-</div><!-- End of the main div -->
-    </body>
-  </html>
+            <!-- List Here -->
+            <ul class="collection white" id="ulposts">
+                <!--<a href="#" style="text-align: left;">
+                    <li class="collection-item black-text avatar">
+
+                        <img src="images/facebook-logo-button.svg" alt="" class="circle">
+                        <span class="title">Title</span>
+                        <p class="cardpara">
+                            First Line <br>
+                            Second Line
+                        </p>
+                    </li>
+                </a>
+                <hr>
+                <a href="#" style="text-align: left;">
+                    <li class="collection-item black-text avatar">
+                        <i class="material-icons circle black">bookmark</i>
+                        <span class="title">Title</span>
+                        <p class="cardpara">
+                            First Line <br>
+                            Second Line
+                        </p>
+                    </li>
+                </a>
+                <hr>
+                <a href="#" style="text-align: left;">
+                    <li class="collection-item black-text avatar">
+                        <i class="material-icons circle black">bookmark</i>
+                        <span class="title">Title</span>
+                        <p class="cardpara">
+                            First Line <br>
+                            Second Line
+                        </p>
+                    </li>
+                </a>
+                <hr>
+                <a href="#" style="text-align: left;">
+                    <li class="collection-item black-text avatar">
+                        <i class="material-icons circle black">bookmark</i>
+                        <span class="title">Title</span>
+                        <p class="cardpara">
+                            First Line <br>
+                            Second Line
+                        </p>
+                    </li>
+                </a>-->
+            </ul>
+
+
+
+        </div>
+        <br>
+    </div><!-- End of the Background Div -->
+    <!-- javascript functions -->
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <!-- JavaScript Functions -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+            $('.slider').slider();
+        });
+    </script>
+    </div><!-- End of the main div -->
+</body>
+</html>
